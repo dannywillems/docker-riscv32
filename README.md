@@ -58,6 +58,28 @@ riscv32-unknown-elf-strip
 
 ## Build the images
 
+Different base images are provided. See the corresponding subdirectory:
+- [Ubuntu 22.04](./ubuntu-22.04)
+- [alpine](./alpine)
+
 ```shell
-docker build -t riscv32-toolchain .
+docker build --build-arg ALPINE_VERSION=3.20 -t riscv32-toolchain:alpine-3.20 -f alpine/Dockerfile .
+docker build --build-arg ALPINE_VERSION=3.19 -t riscv32-toolchain:alpine-3.19 -f alpine/Dockerfile .
+docker build --build-arg ALPINE_VERSION=3.18 -t riscv32-toolchain:alpine-3.18 -f alpine/Dockerfile .
+```
+
+Alpine is recommended if you do need a very lightweight docker image.
+
+You can create an interactive shell with:
+
+```
+docker run -it riscv32-toolchain:alpine-3.20 /bin/sh
+```
+
+## Pushing a new images
+
+For instance, to push the image `riscv32-toolchain:alpine-3.20`, you can use:
+
+```
+docker tag [TAG_ID] dannywillems/riscv32-toolchain:alpine-3.20
 ```
